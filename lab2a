@@ -1,0 +1,71 @@
+//class name: person
+
+package Labprograms;
+public class Person {
+	public String name;
+	public int age;
+}
+
+//class name: staff_op
+
+
+public interface Staff_op{
+	public void Staff_Details();
+}
+
+
+//class name: staff
+
+
+class Staff implements Staff_op{
+	public String empid,name;
+	int age;
+	public double salary;
+	String subject;
+	public Staff(String name,int age,String empid,double salary,String subject) {
+		this.name=name;
+		this.age=age;
+		this.empid=empid;
+		this.salary=salary;
+		this.subject=subject;
+	}
+	public void Staff_Details() {
+		System.out.println("name:" +name);
+		System.out.println("Age:" +age);
+		System.out.println("Empid:" +empid);
+		System.out.println("Salary:" +salary);
+		System.out.println(name+"Teaches"+subject);	
+	}
+	}
+
+//class name : student_op
+
+
+public interface Student_op {
+	public void Student_Details();
+}
+
+//class name: student1
+
+import Labprograms.Person;
+
+class Student1 extends Person implements Student_op{
+	String stdid,name;
+	int age;
+	double fee;
+	String subject;
+	public Student1(String name,int age,String stdid,double fee,String subject) {
+		this.name=name;
+		this.age=age;
+		this.stdid=stdid;
+		this.fee=fee;
+		this.subject=subject;
+	}
+	public void Student_Details() {
+		System.out.println("name:"+name);
+		System.out.println("Age:" +age);
+		System.out.println("Stdid:" +stdid);
+		System.out.println("Fee:" +fee);
+		System.out.println(name+"Read"+subject);	
+	}
+}
