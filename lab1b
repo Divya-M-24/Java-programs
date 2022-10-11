@@ -1,0 +1,126 @@
+import java.util.*;
+
+public class student1 {
+	
+	String name,add,ph_no,email,branch;
+	double tfee,ad_fee,tution_fee,fee1;
+	static String adds,college,ph_nos;
+
+	static {
+		adds="BASAVANAGUDI";
+		college="RV COLLEGE";
+		ph_nos="9880988098";
+	}
+	
+	student1(String name1,String add1,String branch1,String ph_no1,String email1){
+		this.name=name1;
+		this.add=add1;
+		this.branch=branch1;
+		this.ph_no=ph_no1;
+		this.email=email1;
+	}
+	
+	student1(String name1,String add1,String branch1){
+		this.name=name1;
+		this.add=add1;
+		this.branch=branch1;
+		this.ph_no=ph_nos;
+		this.email=name+"@rvce.edu.in";
+	}
+	
+	public double fee(String branch) {
+		this.ad_fee=30000;
+		this.tution_fee=50000;
+		this.fee1=20000;
+		this.tfee=this.ad_fee+this.tution_fee+this.fee1;
+		if(branch.equalsIgnoreCase("MCA")){
+			tfee=tfee+30000;
+		}
+		else {
+			tfee=tfee+10000;
+		}
+		return tfee;
+	}
+	
+	public void display()
+	{
+		System.out.println("NAME: "+name+"\nADDRESS: "+add+"\nBRANCH: "+branch+"\nPHONE NO: "+ph_no+"\nEMAIL ID: "+email);
+	}
+	
+	public void display(String branch)
+	{
+		double feecal=this.fee(branch);
+		System.out.println("BRANCH: "+branch+"\nTOTAL FEE: "+feecal);
+	}
+	
+	public void display(int n)
+	{
+		if(n==3)
+		{
+			System.out.println("NAME: "+name+"\nADDRESS: "+add+"\nBRANCH: "+branch);
+		}
+		else
+		{
+			System.out.println("NAME: "+name+"\nADDRESS: "+add+"\nBRANCH: "+branch+"\nPHONE NO: "+ph_no+"\nEMAIL ID: "+email);
+		}
+	}
+	
+	public static void main(String[] args) {
+		String name,add,ph_no,email,branch;
+		Scanner sc = new Scanner(System.in);
+		student1 si;
+		while(true)
+		{
+			System.out.println("\nEnter Student Details");
+			System.out.println("*********************");
+			System.out.println("\nEnter Name: ");
+			name = sc.nextLine();
+			System.out.println("\nEnter Address: ");
+			add=sc.nextLine();
+			System.out.println("\nEnter Branch: ");
+			branch=sc.nextLine();
+			System.out.println("\nWould You Like to Add Phone Number and EmailID?");
+			System.out.println("0. No 1. Yes \n Enter Your Choice: ");
+			int ch=sc.nextInt();
+			if(ch==1)
+			{
+				System.out.println("\nEnter Phone Number: ");
+				ph_no = sc.nextLine();
+				System.out.println("\nEnter EmailID: ");
+				email = sc.nextLine();
+				si = new student1(name,add,branch,ph_no,email);
+			}
+			else
+			{
+				si = new student1(name,add,branch);
+			}
+			while(true)
+			{
+			System.out.println("\n0. Exit");
+			System.out.println("1. Display All the Fields");
+			System.out.println("2. Display branch fee Details");
+			System.out.println("3. Display 3 or 5 fields");
+			System.out.println("\nEnter Your Choice: ");
+			int ch1 = sc.nextInt();
+			if(ch1==1) {
+				si.display();
+			}
+			else if(ch1==2) {
+				System.out.println("\nEnter Branch: ");
+				String branch2 = sc.next();
+				si.display(branch2);
+			}
+			else if(ch1==3) {
+				System.out.println("Enter 3 or 5");
+				int n=sc.nextInt();
+				si.display(n);
+			}
+			else if(ch1==0)
+				break;
+			else
+				System.out.println("Invalid Choice");
+			}
+			
+		}
+	}
+}
