@@ -1,0 +1,190 @@
+package JDBC;
+import java.util.*;
+import java.sql.*;
+
+class myException extends Exception{
+myException(String msg){
+System.out.println(msg);
+}
+}
+
+public class Lab3bsql {
+
+String url = "jdbc:mysql://172.16.34.105/1rv21mc036";
+String user = "1rv21mc036";
+String pass = "1rv21mc036";
+String query="";
+PreparedStatement st = null;
+
+
+public Connection getConnection() throws SQLException, ClassNotFoundException {
+Class.forName("com.mysql.jdbc.Driver");
+Connection con = DriverManager.getConnection(url,user,pass);
+return con;
+ 
+
+
+}
+
+public  int insert(Connection con, String usn, String name, int age) throws SQLException {
+query = "insert into STUDENTS values(?,?,?)";
+st = con.prepareStatement(query);
+st.setString(1, usn);
+st.setString(2,name);
+st.setInt(3, age);
+return st.executeUpdate();
+
+}
+public  int update(Connection con, String usn, String name) throws SQLException {
+query = "update STUDENTS set name = ? where usn=?";
+st = con.prepareStatement(query);
+st.setString(1, name);
+st.setString(2, usn);
+return st.executeUpdate();
+}
+public  int update(Connection con, String usn, int age) throws SQLException {
+query = "update STUDENTS set age = ? where usn=?";
+st = con.prepareStatement(query);
+st.setInt(1, age);
+st.setString(2, usn);
+return st.executeUpdate();
+}
+
+public ResultSet display(Connection con) throws SQLException {
+query = "Select * from STUDENTS";
+st = con.prepareStatement(query);
+return st.executeQuery();
+}
+
+public int delete(Connection con, String usn) throws SQLException {
+query = "delete from STUDENTS where usn=?";
+st = con.prepareStatement(query);
+st.setString(1, usn);
+return st.executeUpdate();
+}
+public static void main(String[] args) throws Exception {
+// TODO Auto-generated method stub
+Scanner sc = new Scanner(System.in);
+ResultSet rs;
+int row=0;
+String usn="",name;
+int age;
+Connection con=null;
+Lab3bsql obj = new Lab3bsql();
+
+try {
+con = obj.getConnection();
+}catch(SQLException e) {
+e.printStackTrace();
+}catch(ClassNotFoundException e) {
+e.printStackTrace();
+}catch(Exception e) {
+e.printStackTrace();
+}
+
+
+try {
+
+while(true) {
+
+System.out.println("1:Insert  2:Update  3:Display\t4 : Delete  5 : Exit\nYour choice : ");
+int choice = sc.nextInt();
+try {
+if(choice>5 || choice<1)
+throw new myException("Choose the valid option");
+}
+catch(myException e) {
+e.printStackTrace();
+}
+catch(Exception e) {
+e.printStackTrace();
+}
+switch(choice) {
+case 1 :
+
+System.out.println("Enter Student Details : \nUSN : ");
+usn = sc.next();
+try {
+if(usn.length()>10)
+throw new myException("USN length should be less than 10 characters");
+}
+catch(myException e) {
+e.printStackTrace();
+}
+catch(Exception e) {
+e.printStackTrace();
+}
+System.out.println("Name : ");
+name = sc.next();
+System.out.println("Age : ");
+age = sc.nextInt();
+row = obj.insert(con, usn, name, age);
+System.out.println(row + " row/s affected.");
+break;
+
+case 2 :
+System.out.println("Enter Student USN : ");
+usn = sc.next();
+System.out.println("Select Field : \n1 : Name \t2 : Age");
+int opt = sc.nextInt();
+if(opt==1) {
+System.out.println("Enter Name : ");
+name = sc.next();
+row = obj.update(con, usn,name);
+}
+else if(opt==2) {
+System.out.println("Enter Age : ");
+age = sc.nextInt();
+row = obj.update(con, usn,age);
+}
+System.out.println(row + " row updated.");
+break;
+
+case 3 :
+rs = obj.display(con);
+// rs.next();
+// if(!rs.next())
+// System.out.println("No records found.\n");
+while(rs.next()) {
+System.out.println("USN : " + rs.getString(1) + "\nName : "+ rs.getString(2)+"\nAge "+rs.getInt(3)+"\n");
+}
+break;
+case 4 :
+System.out.println("Enter Student USN : ");
+usn = sc.next();
+row = obj.delete(con,usn);
+try {
+if(row==0)
+throw new myException("No record found.");
+}
+catch(myException e) {
+e.printStackTrace();
+}
+catch(Exception e) {
+e.printStackTrace();
+}
+System.out.println(row + " record deleted");
+break;
+
+
+case 5 :
+System.out.println("Program terminated..!");
+System.exit(0);
+
+default :
+System.out.println("Invalid entry please try again");
+
+}
+}
+
+}
+catch(Exception e) {
+e.printStackTrace();
+}
+finally {
+con.close();
+}
+}
+}
+
+
