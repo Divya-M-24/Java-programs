@@ -1,0 +1,64 @@
+import java.util.Scanner;
+
+public class student {
+	String usn,name,add,email,branch;
+	float tution_fee,infra_fee,total_fee;
+	
+	public void display()
+	{
+		System.out.println("USN: "+usn+"\nNAME: "+name+"\nADDRESS: "+add+"\nEMAIL: "+email+"\nBRANCH: "+branch+"\nFEE: "+total_fee);
+	}
+	
+
+	public void fee()
+	{
+		if(this.branch.equalsIgnoreCase("MCA"))
+			this.total_fee = this.tution_fee + this.infra_fee;
+		else if (this.branch.equalsIgnoreCase("BCA"))
+			this.total_fee = this.tution_fee + this.infra_fee;
+		else if (this.branch.equalsIgnoreCase("MBA"))
+			this.total_fee = this.tution_fee + this.infra_fee;
+	}
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		student obj = new student();
+		
+		while(true)
+		{
+			System.out.println("\n 0. Exit \n 1. Accept Details \n 2. Display \n\n Enter Your Choice");
+			int ch = sc.nextInt();
+			
+			switch(ch)
+			{
+				case 1: System.out.println("\n*****Enter Student Details*****"); 
+						System.out.println("\nEnter USN: "); 
+						obj.usn = sc.next();
+						System.out.println("Enter Name: "); 
+						obj.name = sc.next();
+						System.out.println("Enter Address: "); 
+						obj.add = sc.next();
+						System.out.println("Enter Email: "); 
+						obj.email = sc.next();
+						System.out.println("Enter Branch: "); 
+						obj.branch = sc.next();
+						System.out.println("Enter Tution Fee: "); 
+						obj.tution_fee = sc.nextInt();
+						System.out.println("Enter Infrastrcture Fee: "); 
+						obj.infra_fee = sc.nextInt();
+						obj.fee();
+						break;
+					
+				case 2: obj.display();
+						break;
+					
+				case 0: System.exit(0);
+			
+				default: System.out.println("Invalid Choice");
+			}
+		
+		}
+	}
+
+}
