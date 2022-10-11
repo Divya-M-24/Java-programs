@@ -1,0 +1,79 @@
+//class name : circle
+
+package shape;
+
+public class Circle {
+	public double cArea(double radius) {
+		return(3.142*radius*radius);
+	}
+
+}
+
+//class name: triangle
+
+package shape;
+
+public class Triangle {
+	public double triArea(double base,double height) {
+		return(0.5*base*height);
+	}
+
+}
+
+//class name : square
+
+package shape;
+
+public class Square {
+	protected static double sqArea(double side) {
+		return(side*side);
+	}
+}
+
+class name :test
+
+import java.util.Scanner;
+import shape.*;
+
+public class Test extends Square{
+
+	public static void main(String[] args) {
+		double base, height, side, radius;
+		Scanner sc=new Scanner(System.in);
+		while(true) {
+			System.out.println("\n 0.exit \n 1.Area of triangle \n 2.Area of square\n 3.Area of circle \n\n Enter your choice \n");
+			int ch=sc.nextInt();
+			if(ch==0) {
+				System.exit(0);
+			}
+			else if(ch==1) {
+				System.out.println("enter the base:");
+				base=sc.nextDouble();
+				System.out.println("Enter the height:");
+				height=sc.nextDouble();
+				Triangle t=new Triangle();
+				double tri=t.triArea(base,height);
+				System.out.println("Area of triangle="+tri);
+				}
+			else if(ch==2) {
+				System.out.println("Enter the side:");
+				side=sc.nextDouble();
+				Square sq=new Square();
+				double sqarea=sq.sqArea(side);
+				System.out.println("Area of square="+sqarea);
+			}
+			else if(ch==3) {
+				System.out.println("Enter the radius:");
+				radius=sc.nextDouble();
+				Circle c=new Circle();
+				double carea=c.cArea(radius);
+				System.out.println("Area of circle="+carea);
+		}
+			else {
+				System.out.println("invalid choose");
+			}
+
+	}
+	}
+}
+
