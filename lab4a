@@ -1,0 +1,48 @@
+//class name : web page.js
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Calendar;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+@WebServlet("/WebPage")
+public class WebPage extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		try {
+			response.setContentType("text/HTML");
+			response.setIntHeader("refresh", 2);
+			Calendar cal=Calendar.getInstance();
+			out.println("<html><body bgcolor=white>");
+			out.println("The date and time is: "+cal.getTime());
+			out.println("</html></body>");
+		}
+	
+	catch(Exception e)
+		{
+		out.println("Exception:"+e.getMessage());
+		}
+	}
+}
+
+//index.html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="WebPage">
+<input type="button" value="CLICK-ME">
+</form>
+</body>
+</html>
