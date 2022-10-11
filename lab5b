@@ -1,0 +1,86 @@
+//lab5b.jsp file
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" errorPage="error.jsp"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<%
+String Name = request.getParameter("Name");
+String Value = request.getParameter("Value");
+int age = Integer.parseInt(request.getParameter("age"));
+
+try{
+	if(Name.equals("")||Value.equals("")||age==0)
+	{
+		throw new Exception("enter the username and password");
+	}
+	if(Name.equals("divya")&&Value.equals("divya")&&age>=18)
+	{
+		out.println("Eligible to vote");
+	}
+	else {
+		out.println("not eligible to vote");
+	}
+}
+catch(Exception e){
+	out.println(e);
+}
+
+
+
+%>
+</body>
+</html>
+
+
+
+//index.html file:
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>LOGIN</h1>
+<form action="lab5b.jsp">
+
+<label>UserName:</label>
+<input type="text" name="Name">
+<br><br>
+
+<label>Password:</label>
+<input type="password" name="Value"><br><br>
+
+<label>Age:</label>
+<input type="number" name="age">
+<br><br>
+
+<input type="submit" value="submit">
+
+</form>
+</body>
+</html>
+
+
+
+//error page in jsp
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" isErrorPage="true"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<%= exception %>
+</body>
+</html>
